@@ -61,8 +61,6 @@
 "operatorsAliases": false
 }
 
-```
-
 #### 資料庫設定
 
 ##### 請在 MySQL Workbench 輸入下方指令
@@ -97,6 +95,7 @@ use forum;
 ## 主要功能
 
 #### 網管理者:
+
 ##### 1. 只有網站管理者可以登入網站後台
 
 ##### 2. 網站管理者可以在後台管理餐廳的基本資料
@@ -106,8 +105,7 @@ use forum;
 ## 測試帳號
 
 | Name  | Email             | Password | 預設權限 |
-| ----- | ----------------- | -------- | -------  |
-| root  | root@example.com  | 12345678 |  admin   |
-| user1 | user1@example.com | 12345678 |  user    |
-| user2 | user2@example.com | 12345678 |  user    |
-```
+| ----- | ----------------- | -------- | -------- |
+| root  | root@example.com  | 12345678 | admin    |
+| user1 | user1@example.com | 12345678 | user     |
+| user2 | user2@example.com | 12345678 | user     |
