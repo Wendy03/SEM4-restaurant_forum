@@ -1,6 +1,7 @@
 const fs = require('fs')
 const db = require('../models')
 const Restaurant = db.Restaurant
+const User = db.User
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 
@@ -113,6 +114,28 @@ const adminController = {
           .then((restaurant) => {
             res.redirect('/admin/restaurants')
           })
+      })
+  },
+  getUsers: (req, res) => {
+    return User.findAll().then(users => {
+      return res.render('admin/users', {
+        users: JSON.parse(JSON.stringify(users))
+      })
+    })
+  },
+  putUsers: (req, res) => {
+    return User.findByPk(req.params.id)
+      .then(user => {
+        if (req.user.id === user.id) {
+          req.flash('error_messages', "This action is not allow!")
+          return res.redirect('/admin/users')
+        } else {
+          user.update({ isAdmin: !user.isAdmin })
+            .then((user) => {
+              req.flash('success_messages', `${user.name} was successfully to update`)
+              res.redirect('/admin/users')
+            })
+        }
       })
   }
 }
