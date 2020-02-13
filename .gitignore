@@ -9,5 +9,6 @@ upload/
 package-lock.json
 *.log
 *.gz
+.env
 #vscode
 .vscode
