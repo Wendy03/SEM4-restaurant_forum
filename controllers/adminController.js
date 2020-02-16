@@ -9,12 +9,15 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const adminController = {
     getRestaurants: (req, res) => {
         return Restaurant.findAll({ include: [Category] }).then(restaurants => {
-            console.log(restaurants)
+            //console.log(restaurants)
             return res.render('admin/restaurants', { restaurants: JSON.parse(JSON.stringify(restaurants)) })
         })
     },
     createRestaurant: (req, res) => {
-        return res.render('admin/create')
+        Category.findAll().then(categories => {
+            return res.render('admin/create', { categories: JSON.parse(JSON.stringify(categories)) })
+        })
+
     },
     postRestaurant: (req, res) => {
         if (!req.body.name) {
@@ -33,6 +36,7 @@ const adminController = {
                     opening_hours: req.body.opening_hours,
                     description: req.body.description,
                     image: file ? img.data.link : null,
+                    CategoryId: req.body.categoryId
                 }).then((restaurant) => {
                     req.flash('success_messages', 'restaurant was successfully created')
                     return res.redirect('/admin/restaurants')
@@ -45,7 +49,8 @@ const adminController = {
                 address: req.body.address,
                 opening_hours: req.body.opening_hours,
                 description: req.body.description,
-                image: null
+                image: null,
+                CategoryId: req.body.categoryId
             }).then((restaurant) => {
                 req.flash('success_messages', 'restaurant was successfully created')
                 return res.redirect('/admin/restaurants')
@@ -55,13 +60,16 @@ const adminController = {
     getRestaurant: (req, res) => {
         return Restaurant.findByPk(req.params.id, { include: [Category] }).then(restaurant => {
             return res.render('admin/restaurant', {
-                restaurant: JSON.parse(JSON.stringify(restaurant))
+                restaurant: JSON.parse(JSON.stringify(restaurant)),
             })
         })
     },
     editRestaurant: (req, res) => {
         return Restaurant.findByPk(req.params.id).then(restaurant => {
-            return res.render('admin/create', { restaurant: JSON.parse(JSON.stringify(restaurant)) })
+            Category.findAll().then(categories => {
+                return res.render('admin/create', { restaurant: JSON.parse(JSON.stringify(restaurant)), categories: JSON.parse(JSON.stringify(categories)) })
+            })
+
         })
     },
     putRestaurant: (req, res) => {
@@ -82,7 +90,8 @@ const adminController = {
                                 address: req.body.address,
                                 opening_hours: req.body.opening_hours,
                                 description: req.body.description,
-                                image: file ? img.data.link : restaurant.image
+                                image: file ? img.data.link : restaurant.image,
+                                CategoryId: req.body.categoryId
                             })
                             .then((restaurant) => {
                                 req.flash('success_messages', 'restaurant was successfully to update')
@@ -99,7 +108,8 @@ const adminController = {
                             address: req.body.address,
                             opening_hours: req.body.opening_hours,
                             description: req.body.description,
-                            image: restaurant.image
+                            image: restaurant.image,
+                            CategoryId: req.body.categoryId
                         })
                         .then((restaurant) => {
                             req.flash('success_messages', 'restaurant was successfully to update')
