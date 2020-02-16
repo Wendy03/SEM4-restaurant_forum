@@ -18,7 +18,7 @@
   <tbody>
     {{#each users}}
     <tr>
-      <th scope="row">{{this.id}}</th>
+      <th scope="row">{{@index}}</th>
       <td>{{this.email}}</td>
       <td>
         {{#if isAdmin}}
@@ -30,7 +30,7 @@
       <td>
         <form action="/admin/users/{{this.id}}?_method=PUT" method="POST" style="display: inline;">
           <button type="submit" class="btn btn-link">
-            Set as {{#if isAdmin}} admin {{else}} user {{/if}}
+            Set as {{#if isAdmin}} user {{else}} admin {{/if}}
           </button>
         </form>
       </td>
