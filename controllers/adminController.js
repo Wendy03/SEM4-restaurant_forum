@@ -8,9 +8,9 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 
 const adminController = {
     getRestaurants: (req, res) => {
-        return Restaurant.findAll({ include: [Category] }).then(restaurants => {
+        return Restaurant.findAll({ nest: true, raw: true, include: [Category] }).then(restaurants => {
             //console.log(restaurants)
-            return res.render('admin/restaurants', { restaurants: JSON.parse(JSON.stringify(restaurants)) })
+            return res.render('admin/restaurants', { restaurants })
         })
     },
     createRestaurant: (req, res) => {
@@ -58,18 +58,15 @@ const adminController = {
         }
     },
     getRestaurant: (req, res) => {
-        return Restaurant.findByPk(req.params.id, { include: [Category] }).then(restaurant => {
-            return res.render('admin/restaurant', {
-                restaurant: JSON.parse(JSON.stringify(restaurant)),
-            })
+        return Restaurant.findByPk(req.params.id, { nest: true, raw: true, include: [Category] }).then(restaurant => {
+            return res.render('admin/restaurant', { restaurant })
         })
     },
     editRestaurant: (req, res) => {
-        return Restaurant.findByPk(req.params.id).then(restaurant => {
-            Category.findAll().then(categories => {
-                return res.render('admin/create', { restaurant: JSON.parse(JSON.stringify(restaurant)), categories: JSON.parse(JSON.stringify(categories)) })
+        return Restaurant.findByPk(req.params.id, { nest: true, raw: true }).then(restaurant => {
+            Category.findAll({ nest: true, raw: true }).then(categories => {
+                return res.render('admin/create', { restaurant, categories })
             })
-
         })
     },
     putRestaurant: (req, res) => {
@@ -127,10 +124,8 @@ const adminController = {
             })
     },
     getUsers: (req, res) => {
-        return User.findAll().then(users => {
-            return res.render('admin/users', {
-                users: JSON.parse(JSON.stringify(users))
-            })
+        return User.findAll({ nest: true, raw: true }).then(users => {
+            return res.render('admin/users', { users })
         })
     },
     putUsers: (req, res) => {
