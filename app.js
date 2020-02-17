@@ -39,7 +39,6 @@ app.use((req, res, next) => {
 
 // start and listen on the Express server
 app.listen(port, () => {
-    db.sequelize.sync()
     console.log(`Express is listening on http://localhost:${port}`)
 })
 
