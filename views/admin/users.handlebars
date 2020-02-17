@@ -29,11 +29,14 @@
         {{/if}}
       </td>
       <td>
+        {{#ifCond this.email 'root@example.com'}}
+        {{else}}
         <form action="/admin/users/{{this.id}}?_method=PUT" method="POST" style="display: inline;">
           <button type="submit" class="btn btn-link">
             Set as {{#if isAdmin}} user {{else}} admin {{/if}}
           </button>
         </form>
+        {{/ifCond}}
       </td>
     </tr>
     {{/each}}
