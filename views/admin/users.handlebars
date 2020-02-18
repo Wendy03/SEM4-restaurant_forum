@@ -19,7 +19,7 @@
   <tbody>
     {{#each users}}
     <tr>
-      <th scope="row">{{this.id}}</th>
+      <th scope="row">{{inc @index}}</th>
       <td>{{this.email}}</td>
       <td>
         {{#if isAdmin}}

@@ -8,5 +8,8 @@ module.exports = {
     },
     moment: function(a) {
         return moment(a).fromNow()
+    },
+    inc: function(value, options) {
+        return parseInt(value) + 1;
     }
 }

@@ -24,7 +24,7 @@
   <tbody>
     {{#each restaurants}}
     <tr>
-      <th scope="row">{{this.id}}</th>
+      <th scope="row">{{inc @index}}</th>
       <td>{{this.name}}</td>
       <td>{{this.Category.name}}</td>
       <td>
