@@ -1,7 +1,8 @@
 <div id="card" class="container mt-5">
   <div class="row">
     <div class="col-md-4">
-      <img class="circle" src="{{profile.image}}" alt="avatar" width="300px" height="300px" style="border-radius: 50%;">
+      <img class="circle" src="{{profile.image}}" alt="{{profile.name}}" width="250px" height="250px"
+        style="border-radius: 50%;">
     </div>
     <div class="card-body col-md-8 pt-3">
       <h4 class="card-title">{{profile.name}}</h4>
@@ -12,5 +13,16 @@
       {{/ifCond}}
     </div>
   </div>
-
 </div>
+<br />
+<br />
+<div class="card bg-light mb-3">
+  <div class="card-header">{{profile.Comments.length}} 已評論餐廳</div>
+  <div class="card-body">
+    {{#each profile.Comments}}
+    <a href="/restaurants/{{this.Restaurant.id}}">
+      <img src="{{this.Restaurant.image}}" alt="{{this.Restaurant.name}}" title="{{this.Restaurant.name}}"
+        class="rounded mr-2" width="70" height="70">
+    </a>
+    {{/each}}
+  </div>
