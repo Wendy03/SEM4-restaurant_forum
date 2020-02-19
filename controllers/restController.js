@@ -25,7 +25,8 @@ let restController = {
             let next = page + 1 > pages ? pages : page + 1
             const data = result.rows.map(r => ({
                 ...r,
-                description: r.description.substring(0, 50)
+                description: r.description.substring(0, 50),
+                isFavorited: req.user.FavoritedRestaurants.map(d => d.id).includes(r.id)
             }))
             Category.findAll({ nest: true, raw: true }).then(categories => {
                 console.log(req.query.page)
@@ -45,12 +46,14 @@ let restController = {
         return Restaurant.findByPk(req.params.id, {
             include: [
                 Category,
+                { model: User, as: 'FavoritedUsers' },
                 { model: Comment, include: [User] }
             ]
         }).then(restaurant => {
             restaurant.viewCounts += 1
             restaurant.save()
-            return res.render('restaurant', { restaurant: JSON.parse(JSON.stringify(restaurant)) })
+            const isFavorited = restaurant.FavoritedUsers.map(d => d.id).includes(req.user.id)
+            return res.render('restaurant', JSON.parse(JSON.stringify({ restaurant, isFavorited })))
         })
     },
     getFeeds: (req, res) => {
