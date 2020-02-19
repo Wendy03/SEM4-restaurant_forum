@@ -48,6 +48,8 @@ let restController = {
                 { model: Comment, include: [User] }
             ]
         }).then(restaurant => {
+            restaurant.viewCounts += 1
+            restaurant.save()
             return res.render('restaurant', { restaurant: JSON.parse(JSON.stringify(restaurant)) })
         })
     },
