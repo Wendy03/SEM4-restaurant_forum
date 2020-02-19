@@ -30,7 +30,7 @@ let restController = {
                 isLiked: req.user.LikedRestaurants.map(d => d.id).includes(r.id)
             }))
             Category.findAll({ nest: true, raw: true }).then(categories => {
-                console.log(req.query.page)
+                // console.log(data)
                 return res.render('restaurants', {
                     restaurants: data,
                     categories: categories,
