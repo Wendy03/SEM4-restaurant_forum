@@ -1,28 +1,104 @@
 <div id="card" class="container mt-5">
   <div class="row">
     <div class="col-md-4">
+      {{#if profile.image}}
       <img class="circle" src="{{profile.image}}" alt="{{profile.name}}" width="250px" height="250px"
         style="border-radius: 50%;">
+      {{else}}
+      <img src="https://lighthouse-cdn.alphacamp.co/default/medium_user_photo.jpg" width="250px" height="250px"
+        style="border-radius: 50%;" />
+      {{/if}}
+
     </div>
     <div class="card-body col-md-8 pt-3">
-      <h4 class="card-title">{{profile.name}}</h4>
-      <p>{{profile.email}}</p>
-      <br /><br />
-      {{#ifCond profile.id user.id}}
-      <a href="/users/{{profile.id}}/edit" class="btn btn-primary">Edit</a>
-      {{/ifCond}}
+      <div class="card-body">
+        <h4 class="card-title">{{profile.name}}</h4>
+        <p class="card-text">{{profile.email}}</p>
+        <br /><br />
+        <ul>
+          <li>{{commentCount.length}} 已評論餐廳</li>
+          <li>{{profile.FavoritedRestaurants.length}} 收藏的餐廳</li>
+          <li>{{profile.Followings.length}} Followings (追蹤者)</li>
+          <li>{{profile.Followers.length}} Followers (追隨者)</li>
+        </ul>
+        <br /><br />
+        {{#ifCond profile.id user.id}}
+        <a href="/users/{{profile.id}}/edit" class="btn btn-primary ml-5">Edit</a>
+        {{else}}
+        {{#if this.isFollowed }}
+        <form action="/following/{{profile.id}}?_method=DELETE" method="POST" style="display: contents;"><button
+            type="submit" class="btn btn-danger ml-5">取消追蹤</button></form>
+        {{else}}
+        <form action="/following/{{profile.id}}" method="POST" style="display: contents;"><button type="submit"
+            class="btn btn-primary ml-5">追蹤</button></form>
+        {{/if}}
+        {{/ifCond}}
+      </div>
+
     </div>
   </div>
 </div>
 <br />
 <br />
-<div class="card bg-light mb-3">
-  <div class="card-header">{{profile.Comments.length}} 已評論餐廳</div>
-  <div class="card-body">
-    {{#each profile.Comments}}
-    <a href="/restaurants/{{this.Restaurant.id}}">
-      <img src="{{this.Restaurant.image}}" alt="{{this.Restaurant.name}}" title="{{this.Restaurant.name}}"
-        class="rounded mr-2" width="70" height="70">
-    </a>
-    {{/each}}
+<div class="row">
+  <div class="col-md-4">
+    <div class="card bg-light mb-3" height="160px">
+      <div class="card-header">{{profile.Followings.length}} Followings (追蹤者)</div>
+      <div class="card-body">
+        {{#each profile.Followings}}
+        <a href="/users/{{this.id}}">
+          {{#if this.image}}
+          <img src="{{this.image}}" alt="{{this.name}}" title="{{this.name}}" class="rounded mr-2" width="70"
+            height="70">
+          {{else}}
+          <img src="https://lighthouse-cdn.alphacamp.co/default/medium_user_photo.jpg" class="rounded mr-2" width="70"
+            height="70" />
+          {{/if}}
+        </a>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="card bg-light mb-3" height="160px">
+      <div class="card-header">{{profile.Followers.length}} Followers (追隨者)</div>
+      <div class="card-body">
+        {{#each profile.Followers}}
+        <a href="/users/{{this.id}}">
+          {{#if this.image}}
+          <img src="{{this.image}}" alt="{{this.name}}" title="{{this.name}}" class="rounded mr-2" width="70"
+            height="70">
+          {{else}}
+          <img src="https://lighthouse-cdn.alphacamp.co/default/medium_user_photo.jpg" class="rounded mr-2" width="70"
+            height="70" />
+          {{/if}}
+        </a>
+        {{/each}}
+      </div>
+    </div>
   </div>
+
+  <div class="col-md-8">
+    <div class="card bg-light mb-3" height="160px">
+      <div class="card-header">{{commentCount.length}} 已評論餐廳</div>
+      <div class="card-body">
+        {{#each commentCount}}
+        <a href="/restaurants/{{this.Restaurant.id}}">
+          <img src="{{this.Restaurant.image}}" alt="{{this.Restaurant.name}}" title="{{this.Restaurant.name}}"
+            class="rounded mr-2" width="70" height="70">
+        </a>
+        {{/each}}
+      </div>
+    </div>
+    <div class="card bg-light mb-3" height="160px">
+      <div class="card-header">{{profile.FavoritedRestaurants.length}}收藏的餐廳</div>
+      <div class="card-body">
+        {{#each profile.FavoritedRestaurants}}
+        <a href="/restaurants/{{this.id}}">
+          <img src="{{this.image}}" alt="{{this.name}}" title="{{this.name}}" class="rounded mr-2" width="70"
+            height="70">
+        </a>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
