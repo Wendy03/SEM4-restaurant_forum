@@ -42,7 +42,7 @@
 <br />
 <div class="row">
   <div class="col-md-4">
-    <div class="card bg-light mb-3" style="height: 160px;">
+    <div class="card bg-light mb-3" style="min-height: 160px;">
       <div class="card-header">{{profile.Followings.length}} Followings (追蹤者)</div>
       <div class="card-body">
         {{#each profile.Followings}}
@@ -59,7 +59,7 @@
       </div>
     </div>
 
-    <div class="card bg-light mb-3" style="height: 160px;">
+    <div class="card bg-light mb-3" style="min-height: 160px;">
       <div class="card-header">{{profile.Followers.length}} Followers (追隨者)</div>
       <div class="card-body">
         {{#each profile.Followers}}
@@ -78,7 +78,7 @@
   </div>
 
   <div class="col-md-8">
-    <div class="card bg-light mb-3" style="height: 160px;">
+    <div class="card bg-light mb-3" style="min-height: 160px;">
       <div class="card-header">{{commentCount.length}} 已評論餐廳</div>
       <div class="card-body">
         {{#each commentCount}}
@@ -89,7 +89,7 @@
         {{/each}}
       </div>
     </div>
-    <div class="card bg-light mb-3" style="height: 160px;">
+    <div class="card bg-light mb-3" style="min-height: 160px;">
       <div class="card-header">{{profile.FavoritedRestaurants.length}} 收藏的餐廳</div>
       <div class="card-body">
         {{#each profile.FavoritedRestaurants}}
