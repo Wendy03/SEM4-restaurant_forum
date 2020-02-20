@@ -69,7 +69,7 @@ const userController = {
         if (Number(req.params.id) !== Number(req.user.id)) {
             return res.redirect(`/users/${req.params.id}`)
         }
-        if (!req.user.name) {
+        if (!req.body.name) {
             req.flash('error_messages', "姓名必填寫")
             return res.redirect('back')
         }
