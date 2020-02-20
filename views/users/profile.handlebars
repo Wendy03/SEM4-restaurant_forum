@@ -1,6 +1,6 @@
 <div id="card" class="container mt-5">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 mt-5">
       {{#if profile.image}}
       <img class="circle" src="{{profile.image}}" alt="{{profile.name}}" width="250px" height="250px"
         style="border-radius: 50%;">
@@ -21,7 +21,7 @@
           <li>{{profile.Followings.length}} Followings (追蹤者)</li>
           <li>{{profile.Followers.length}} Followers (追隨者)</li>
         </ul>
-        <br /><br />
+        <br />
         {{#ifCond profile.id user.id}}
         <a href="/users/{{profile.id}}/edit" class="btn btn-primary ml-5">Edit</a>
         {{else}}
@@ -52,7 +52,7 @@
             height="70">
           {{else}}
           <img src="https://lighthouse-cdn.alphacamp.co/default/medium_user_photo.jpg" class="rounded mr-2" width="70"
-            height="70" />
+            height="70" title="{{this.name}}" />
           {{/if}}
         </a>
         {{/each}}
@@ -69,7 +69,7 @@
             height="70">
           {{else}}
           <img src="https://lighthouse-cdn.alphacamp.co/default/medium_user_photo.jpg" class="rounded mr-2" width="70"
-            height="70" />
+            height="70" title="{{this.name}}" />
           {{/if}}
         </a>
         {{/each}}
@@ -90,7 +90,7 @@
       </div>
     </div>
     <div class="card bg-light mb-3" style="height: 160px;">
-      <div class="card-header">{{profile.FavoritedRestaurants.length}}收藏的餐廳</div>
+      <div class="card-header">{{profile.FavoritedRestaurants.length}} 收藏的餐廳</div>
       <div class="card-body">
         {{#each profile.FavoritedRestaurants}}
         <a href="/restaurants/{{this.id}}">
