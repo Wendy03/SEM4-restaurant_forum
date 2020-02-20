@@ -38,6 +38,9 @@ module.exports = (app, passport) => {
     app.post('/like/:restaurantId', authenticated, userController.addLike)
     app.delete('/like/:restaurantId', authenticated, userController.removeLike)
 
+    app.post('/following/:userId', authenticated, userController.addFollowing)
+    app.delete('/following/:userId', authenticated, userController.removeFollowing)
+
     //連到/admin
     app.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants'))
     app.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)
