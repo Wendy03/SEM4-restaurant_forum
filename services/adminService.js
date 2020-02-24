@@ -15,6 +15,15 @@ const adminService = {
     return Restaurant.findByPk(req.params.id, { nest: true, raw: true, include: [Category] })
       .then(restaurant => callback({ restaurant }))
   },
+  deleteRestaurant: (req, res, callback) => {
+    return Restaurant.findByPk(req.params.id)
+      .then((restaurant) => {
+        restaurant.destroy()
+          .then((restaurant) => {
+            callback({ status: 'success', message: '' })
+          })
+      })
+  },
 }
 
 
