@@ -17,7 +17,6 @@ const adminService = {
   },
   postRestaurant: (req, res, callback) => {
     if (!req.body.name) {
-      req.flash('error_messages', "name didn't exist")
       return callback({ status: 'error', message: "Name didn't exist" })
     }
 
