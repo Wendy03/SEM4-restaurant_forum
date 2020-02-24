@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const flash = require('connect-flash')
 const session = require('express-session')
 const db = require('./models')
-const passport = require('./config/passport')
 const methodOverride = require('method-override')
 const app = express()
 
@@ -13,6 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+const passport = require('./config/passport')
 
 // setting template engine
 app.engine('handlebars', exphbs({
