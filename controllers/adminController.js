@@ -60,24 +60,19 @@ const adminController = {
     })
   },
   getUsers: (req, res) => {
-    return User.findAll({ nest: true, raw: true }).then(users => {
-      return res.render('admin/users', { users })
+    adminService.getUsers(req, res, (data) => {
+      return res.render('admin/users', data)
     })
   },
   putUsers: (req, res) => {
-    return User.findByPk(req.params.id)
-      .then(user => {
-        if (req.user.id === user.id) {
-          req.flash('error_messages', "This action is not allow!")
-          return res.redirect('/admin/users')
-        } else {
-          user.update({ isAdmin: !user.isAdmin })
-            .then((user) => {
-              req.flash('success_messages', `${user.name} was successfully to update`)
-              res.redirect('/admin/users')
-            })
-        }
-      })
+    adminService.putUsers(req, res, (data) => {
+      if (data['status'] === 'error') {
+        req.flash('error_messages', data['message'])
+        return res.redirect('/admin/users')
+      }
+      req.flash('success_messages', data['message'])
+      res.redirect('/admin/users')
+    })
   }
 }
 
