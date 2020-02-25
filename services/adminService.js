@@ -71,7 +71,7 @@ const adminService = {
               CategoryId: req.body.categoryId
             })
               .then((restaurant) => {
-                callback({ status: 'success', message: 'Restaurant was successfully created' })
+                callback({ status: 'success', message: 'Restaurant was successfully updated' })
               })
           })
       })
@@ -88,7 +88,7 @@ const adminService = {
             CategoryId: req.body.categoryId
           })
             .then((restaurant) => {
-              callback({ status: 'success', message: 'Restaurant was successfully created' })
+              callback({ status: 'success', message: 'Restaurant was successfully updated' })
             })
         })
   },
@@ -101,6 +101,26 @@ const adminService = {
           })
       })
   },
+  getUsers: (req, res, callback) => {
+    return User.findAll({ raw: true }).then(users => {
+      callback({ users })
+    })
+  },
+  putUsers: (req, res, callback) => {
+    return User.findByPk(req.params.id)
+      .then(user => {
+        if (req.user.id === user.id) {
+          callback({ status: 'error', message: "This action is not allow!" })
+        } else {
+          user.update({ isAdmin: !user.isAdmin })
+            .then((user) => {
+              callback({
+                status: 'success', message: `${user.name} was successfully to update`
+              })
+            })
+        }
+      })
+  }
 }
 
 
