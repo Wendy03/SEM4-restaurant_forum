@@ -44,14 +44,14 @@
 
 > #### [圖片網站 Imgur](https://api.imgur.com/oauth2/addclient) 填寫資料取得 client ID
 
-```
+
 
 #### 修改 /config/config.json
 
-```
 
 - 修改 development mode 的設定，加入資料庫的名字與密碼,刪除 operatorsAliases
 
+```
 "development": {
 "username": "root",
 "password": "your password",
@@ -60,6 +60,8 @@
 "dialect": "mysql",
 "operatorsAliases": false
 }
+
+```
 
 #### 資料庫設定
 
@@ -98,13 +100,22 @@ use forum;
 
 #### 2.使用者註冊成功後以 Email、Password 登入餐廳論壇
 
-#### 3.使用這可以編輯個人資料
+#### 3.使用者可以編輯個人資料
 
 #### 4.使用者可以查看全部餐廳資料
 
 #### 5.使用者可以點選特定餐廳查看詳細資料
 
 #### 6.使用者可以點選特定餐廳給予評論
+
+#### 7.使用者可以使用餐廳分類查看餐廳
+#### 8.使用者可以查看最新動態
+#### 9.使用者可以查看人氣餐廳
+#### 10.使用者可以查看每人達人
+#### 11.使用者可以點選加到最愛/移除最愛追蹤餐廳
+#### 12.使用者可以點選Like/Unlike
+#### 13.使用者可以追蹤/取消追蹤其他使用者
+
 
 #### 網管理者:
 
