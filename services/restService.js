@@ -103,7 +103,7 @@ let restService = {
     }).then(restaurants => {
       restaurants = restaurants.map(r => ({
         ...r.dataValues,
-        description: r.description,
+        description: r.dataValues.description ? r.dataValues.description.substring(0, 50) : '',
         FavoritedCount: r.FavoritedUsers.length,
         isFavorited: req.user.FavoritedRestaurants.map(d => d.id).includes(r.id)
       }))
