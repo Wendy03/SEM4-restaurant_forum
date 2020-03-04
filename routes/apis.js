@@ -21,6 +21,8 @@ const authenticatedAdmin = (req, res, next) => {
   }
 }
 
+router.get('/get_current_user', authenticated, userController.getCurrentUser)
+
 router.get('/', authenticated, (req, res) => res.redirect('/api/restaurants'))
 router.get('/restaurants', authenticated, restController.getRestaurants)
 router.get('/restaurants/feeds', authenticated, restController.getFeeds)
@@ -44,12 +46,12 @@ router.delete('/comments/:id', authenticatedAdmin, commentController.deleteComme
 router.get('/admin', authenticated, authenticatedAdmin, (req, res) => res.redirect('/api/admin/restaurants'))
 router.get('/admin/restaurants', authenticated, authenticatedAdmin, adminController.getRestaurants)
 router.get('/admin/restaurants/:id', authenticated, authenticatedAdmin, adminController.getRestaurant)
-router.post('/admin/restaurants', upload.single('image'), authenticated, authenticatedAdmin, adminController.postRestaurant)
-router.put('/admin/restaurants/:id', upload.single('image'), authenticated, authenticatedAdmin, adminController.putRestaurant)
+router.post('/admin/restaurants', authenticated, authenticatedAdmin, upload.single('image'), adminController.postRestaurant)
+router.put('/admin/restaurants/:id', authenticated, authenticatedAdmin, upload.single('image'), adminController.putRestaurant)
 router.delete('/admin/restaurants/:id', authenticated, authenticatedAdmin, adminController.deleteRestaurant)
 
-router.get('/admin/users', authenticatedAdmin, adminController.getUsers)
-router.put('/admin/users/:id', authenticatedAdmin, adminController.putUsers)
+router.get('/admin/users', authenticated, authenticatedAdmin, adminController.getUsers)
+router.put('/admin/users/:id', authenticated, authenticatedAdmin, adminController.putUsers)
 
 router.get('/admin/categories', authenticated, authenticatedAdmin, categoryController.getCategories)
 router.post('/admin/categories', authenticated, authenticatedAdmin, categoryController.postCategory)

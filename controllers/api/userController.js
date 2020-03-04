@@ -69,7 +69,7 @@ let userController = {
     })
   },
   addFavorite: (req, res) => {
-    userService.addFavoriter(req, res, (data) => {
+    userService.addFavorite(req, res, (data) => {
       return res.json(data)
     })
   },
@@ -94,13 +94,22 @@ let userController = {
     })
   },
   addFollowing: (req, res) => {
-    userService.getTopUser(req, res, (data) => {
+    userService.addFollowing(req, res, (data) => {
       return res.json(data)
     })
   },
   removeFollowing: (req, res) => {
-    userService.getTopUser(req, res, (data) => {
+    userService.removeFollowing(req, res, (data) => {
       return res.json(data)
+    })
+  },
+  getCurrentUser: (req, res) => {
+    return res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email,
+      image: req.user.image,
+      isAdmin: req.user.isAdmin
     })
   }
 }
